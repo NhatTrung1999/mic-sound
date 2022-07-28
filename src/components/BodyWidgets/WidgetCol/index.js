@@ -1,0 +1,11 @@
+function WidgetCol({ children, position }) {
+    return (
+        <div
+            className={`widget-col ${
+                position === "right" ? "col-right" : "col-left"
+            } flex`}
+        ></div>
+    );
+}
+
+export default WidgetCol;

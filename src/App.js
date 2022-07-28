@@ -14,6 +14,7 @@ import BodyWrapper from "./Layout/BodyWrapper";
 import Footer from "./Layout/Footer";
 
 function App() {
+
   return (
     <>
       <Navbar />

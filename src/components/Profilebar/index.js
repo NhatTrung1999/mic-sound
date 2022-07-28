@@ -1,12 +1,22 @@
+import Profilename from "./Profilename";
+import DropdownArea from "./DropdownArea";
+import ProfileAction from "./ProfileAction";
+
 function Profilebar() {
     return (
         <div className="profile-bar flex">
-            <div class="loader" tooltip="Syncing Profiles"></div>
+            <div className="loader" tooltip="Syncing Profiles"></div>
             <div>profile</div>
 
-            <div class="obm hover-border" tooltip="On-board Profiles"></div>
-					<div class="divider"></div>
-					<div class="batt batt-30" tooltip="30% Battery"></div>
+            <Profilename /> 
+
+            <DropdownArea />
+
+            <ProfileAction />
+
+            <div className="obm hover-border" tooltip="On-board Profiles"></div>
+            <div className="divider"></div>
+            <div className="batt batt-30" tooltip="30% Battery"></div>
         </div>
     );
 }
