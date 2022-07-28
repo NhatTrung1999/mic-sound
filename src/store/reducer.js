@@ -1,4 +1,3 @@
-import { Profiler } from "react";
 import {
     ADD_PROFILE,
     // DUPLICATE_PROFILE,
@@ -63,6 +62,9 @@ const initState = {
 // }
 
 function reducer(state, action) {
+
+    console.log(action)
+
     switch (action.type) {
         // ACTIONS
         case SELECT_PROFILE:

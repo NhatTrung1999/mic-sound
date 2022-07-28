@@ -1,9 +1,9 @@
 import Tip from '../Tip'
 
-function Widget({tooltip, children, ...rest}) {
+function Widget({children}) {
     return (
-        <div className="widget" {...rest}>
-            {tooltip && (<Tip description={tooltip} />)}
+        <div className="widget">
+            <Tip />
             {children}
         </div>
     );

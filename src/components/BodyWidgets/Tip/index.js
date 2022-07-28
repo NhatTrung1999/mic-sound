@@ -1,9 +1,10 @@
-function Tip({ description }) {
+function Tip() {
     return (
         <>
             <div className="help"></div>
             <div className="tip">
-                {description}
+                I'm just a tooltip. I'm just a tooltip. I'm just a tooltip. I'm
+                just a tooltip. I'm just a tooltip.
             </div>
         </>
     );
