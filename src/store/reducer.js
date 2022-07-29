@@ -27,11 +27,207 @@ const initState = {
             id: 0,
             name: "default profile",
             mic: {
-                enabled: false,
+                enabled: true,
                 value: 55,
             },
             micSensitivity: {
+                enabled: true,
+                value: 55,
+            },
+            sidetone: {
                 enabled: false,
+                value: 50,
+            },
+            volumeNormalization: {
+                enabled: false,
+                value: 50,
+            },
+            ambientNoiseReduction: {
+                enabled: false,
+                value: 50,
+            },
+            voiceClarity: {
+                enabled: false,
+                value: 50,
+            },
+        },
+        {
+            id: 1,
+            name: "profile 2",
+            mic: {
+                enabled: true,
+                value: 55,
+            },
+            micSensitivity: {
+                enabled: true,
+                value: 55,
+            },
+            sidetone: {
+                enabled: false,
+                value: 50,
+            },
+            volumeNormalization: {
+                enabled: false,
+                value: 50,
+            },
+            ambientNoiseReduction: {
+                enabled: false,
+                value: 50,
+            },
+            voiceClarity: {
+                enabled: false,
+                value: 50,
+            },
+        },
+        {
+            id: 2,
+            name: "profile 3",
+            mic: {
+                enabled: true,
+                value: 55,
+            },
+            micSensitivity: {
+                enabled: true,
+                value: 55,
+            },
+            sidetone: {
+                enabled: false,
+                value: 50,
+            },
+            volumeNormalization: {
+                enabled: false,
+                value: 50,
+            },
+            ambientNoiseReduction: {
+                enabled: false,
+                value: 50,
+            },
+            voiceClarity: {
+                enabled: false,
+                value: 50,
+            },
+        },
+        {
+            id: 3,
+            name: "profile 4",
+            mic: {
+                enabled: true,
+                value: 55,
+            },
+            micSensitivity: {
+                enabled: true,
+                value: 55,
+            },
+            sidetone: {
+                enabled: false,
+                value: 50,
+            },
+            volumeNormalization: {
+                enabled: false,
+                value: 50,
+            },
+            ambientNoiseReduction: {
+                enabled: false,
+                value: 50,
+            },
+            voiceClarity: {
+                enabled: false,
+                value: 50,
+            },
+        },
+        {
+            id: 4,
+            name: "profile 5",
+            mic: {
+                enabled: true,
+                value: 55,
+            },
+            micSensitivity: {
+                enabled: true,
+                value: 55,
+            },
+            sidetone: {
+                enabled: false,
+                value: 50,
+            },
+            volumeNormalization: {
+                enabled: false,
+                value: 50,
+            },
+            ambientNoiseReduction: {
+                enabled: false,
+                value: 50,
+            },
+            voiceClarity: {
+                enabled: false,
+                value: 50,
+            },
+        },
+        {
+            id: 5,
+            name: "profile 6",
+            mic: {
+                enabled: true,
+                value: 55,
+            },
+            micSensitivity: {
+                enabled: true,
+                value: 55,
+            },
+            sidetone: {
+                enabled: false,
+                value: 50,
+            },
+            volumeNormalization: {
+                enabled: false,
+                value: 50,
+            },
+            ambientNoiseReduction: {
+                enabled: false,
+                value: 50,
+            },
+            voiceClarity: {
+                enabled: false,
+                value: 50,
+            },
+        },
+        {
+            id: 6,
+            name: "profile 7",
+            mic: {
+                enabled: true,
+                value: 55,
+            },
+            micSensitivity: {
+                enabled: true,
+                value: 55,
+            },
+            sidetone: {
+                enabled: false,
+                value: 50,
+            },
+            volumeNormalization: {
+                enabled: false,
+                value: 50,
+            },
+            ambientNoiseReduction: {
+                enabled: false,
+                value: 50,
+            },
+            voiceClarity: {
+                enabled: false,
+                value: 50,
+            },
+        },
+        {
+            id: 7,
+            name: "profile 8",
+            mic: {
+                enabled: true,
+                value: 55,
+            },
+            micSensitivity: {
+                enabled: true,
                 value: 55,
             },
             sidetone: {
@@ -55,16 +251,8 @@ const initState = {
     selectedIndex: 0,
 };
 
-// const cloneProfile = (profile, newId) => {
-//     const newProfile = [...initState.listData]
-//     newProfile.id = newId
-//     return newProfile;
-// }
 
 function reducer(state, action) {
-
-    console.log(action)
-
     switch (action.type) {
         // ACTIONS
         case SELECT_PROFILE:
@@ -79,188 +267,177 @@ function reducer(state, action) {
             };
         case DELETE_PROFILE: {
             const id = action.payload;
-            const newProfile = [...state.listData];
-            if (newProfile.length < 2) return state.listData;
-            newProfile.filter((profile) => profile.id !== id);
+            const listData = [...state.listData];
+            const newList = listData.filter(profile => profile.id !== id);
             return {
                 ...state,
-                listData: newProfile,
-                selectedIndex: id,
-            };
+                listData: newList,
+                selectedIndex: newList[0].id
+            }
         }
         case RENAME_PROFILE: {
-            const newProfile = [...state.listData];
-            const profile = newProfile.find(
-                (profile) => profile.id === state.selectedIndex
-            );
-            profile.name = action.payload;
+            const id = action.payload.id;
+            const newvalue = action.payload.value;
+            const listData = [...state.listData];
+            listData.find(profile => profile.id === id).name = newvalue;
             return {
                 ...state,
-                listData: profile,
-            };
+                listData: listData,
+            }
         }
 
         //MICPHONE
         case ENABLE_MIC: {
             const id = action.payload.id;
             const newValue = action.payload.value;
-            const listProfile = [...state.listProfile];
-            listProfile.find(profile => profile.id === id).mic.enabled = newValue;
+            const listData = [...state.listData];
+            listData.find((profile) => profile.id === id).mic.enabled =
+                newValue;
             return {
                 ...state,
-                listProfile: listProfile,
-            }
+                listData: listData,
+            };
         }
         case CHANGE_MIC_VALUE: {
             const id = action.payload.id;
             const newValue = action.payload.value;
-            const listProfile = [...state.listProfile];
-            listProfile.find(profile => profile.id === id).mic.value = newValue;
+            const listData = [...state.listData];
+            listData.find((profile) => profile.id === id).mic.value = newValue;
             return {
                 ...state,
-                listProfile: listProfile,
-            }
+                listData: listData,
+            };
         }
 
         //MICSENSITIVITY
         case ENABLE_MIC_SENSITIVITY: {
             const id = action.payload.id;
             const newValue = action.payload.value;
-            const listProfile = [...state.listProfile];
-            listProfile.find(profile => profile.id === id).micSensitivity.enabled = newValue;
+            const listData = [...state.listData];
+            listData.find(
+                (profile) => profile.id === id
+            ).micSensitivity.enabled = newValue;
             return {
                 ...state,
-                listProfile: listProfile,
-            }
+                listData: listData,
+            };
         }
         case CHANGE_MIC_SENSITIVITY: {
             const id = action.payload.id;
             const newValue = action.payload.value;
-            const listProfile = [...state.listProfile];
-            listProfile.find(profile => profile.id === id).micSensitivity.value = newValue;
+            const listData = [...state.listData];
+            listData.find((profile) => profile.id === id).micSensitivity.value =
+                newValue;
             return {
                 ...state,
-                listProfile: listProfile,
-            }
+                listData: listData,
+            };
         }
 
-        //SIDETONE 
+        //SIDETONE
         case ENABLE_SIDETONE: {
             const id = action.payload.id;
             const newValue = action.payload.value;
-            const listProfile = [...state.listProfile];
-            listProfile.find(profile => profile.id === id).sidetone.enabled = newValue;
+            const listData = [...state.listData];
+            listData.find((profile) => profile.id === id).sidetone.enabled =
+                newValue;
             return {
                 ...state,
-                listProfile: listProfile,
-            }
+                listData: listData,
+            };
         }
         case CHANGE_SIDETONE: {
             const id = action.payload.id;
             const newValue = action.payload.value;
-            const listProfile = [...state.listProfile];
-            listProfile.find(profile => profile.id === id).sidetone.value = newValue;
+            const listData = [...state.listData];
+            listData.find((profile) => profile.id === id).sidetone.value =
+                newValue;
             return {
                 ...state,
-                listProfile: listProfile,
-            }
+                listData: listData,
+            };
         }
 
         //VOLUME NORMALIZATION
         case ENABLE_VOLUME_NORMALIZATION: {
             const id = action.payload.id;
             const newValue = action.payload.value;
-            const listProfile = [...state.listProfile];
-            listProfile.find(profile => profile.id === id).volumeNormalization.enabled = newValue;
+            const listData = [...state.listData];
+            listData.find(
+                (profile) => profile.id === id
+            ).volumeNormalization.enabled = newValue;
             return {
                 ...state,
-                listProfile: listProfile,
-            }
+                listData: listData,
+            };
         }
         case CHANGE_VOLUME_NORMALIZATION: {
             const id = action.payload.id;
             const newValue = action.payload.value;
-            const listProfile = [...state.listProfile];
-            listProfile.find(profile => profile.id === id).volumeNormalization.value = newValue;
+            const listData = [...state.listData];
+            listData.find(
+                (profile) => profile.id === id
+            ).volumeNormalization.value = newValue;
             return {
                 ...state,
-                listProfile: listProfile,
-            }
+                listData: listData,
+            };
         }
 
         //AMBIENT NOISE REDUCTION
         case ENABLE_AMBIENT_NOISE_REDUCTION: {
             const id = action.payload.id;
             const newValue = action.payload.value;
-            const listProfile = [...state.listProfile];
-            listProfile.find(profile => profile.id === id).ambientNoiseReduction.enabled = newValue;
+            const listData = [...state.listData];
+            listData.find(
+                (profile) => profile.id === id
+            ).ambientNoiseReduction.enabled = newValue;
             return {
                 ...state,
-                listProfile: listProfile,
-            }
+                listData: listData,
+            };
         }
         case CHANGE_AMBIENT_NOISE_REDUCTION: {
             const id = action.payload.id;
             const newValue = action.payload.value;
-            const listProfile = [...state.listProfile];
-            listProfile.find(profile => profile.id === id).ambientNoiseReduction.value = newValue;
+            const listData = [...state.listData];
+            listData.find(
+                (profile) => profile.id === id
+            ).ambientNoiseReduction.value = newValue;
             return {
                 ...state,
-                listProfile: listProfile,
-            }
+                listData: listData,
+            };
         }
 
         //VOICE CLARITY
         case ENABLE_VOICE_CLARITY: {
             const id = action.payload.id;
             const newValue = action.payload.value;
-            const listProfile = [...state.listProfile];
-            listProfile.find(profile => profile.id === id).voiceClarity.enabled = newValue;
+            const listData = [...state.listData];
+            listData.find((profile) => profile.id === id).voiceClarity.enabled =
+                newValue;
             return {
                 ...state,
-                listProfile: listProfile,
-            }
+                listData: listData,
+            };
         }
         case CHANGE_VOICE_CLARITY: {
             const id = action.payload.id;
             const newValue = action.payload.value;
-            const listProfile = [...state.listProfile];
-            listProfile.find(profile => profile.id === id).voiceClarity.value = newValue;
+            const listData = [...state.listData];
+            listData.find((profile) => profile.id === id).voiceClarity.value =
+                newValue;
             return {
                 ...state,
-                listProfile: listProfile,
-            }
+                listData: listData,
+            };
         }
-
+        default:
+            throw new Error("Invalid Action.")
     }
 }
 
 export { initState };
 export default reducer;
 
-// case CHANGE_CONFIG:{
-//     const field = features[action.payload.feature];
-//     if (!field) return;
-
-//     const selectedProfile = state.listData.find(
-//         (profile) => state.selectedIndex === profile.id
-//     );
-//     selectedProfile[field].value = action.payload.value;
-//     return {
-//         ...state,
-//         listData: selectedProfile,
-//     };
-// }
-// case ENABLE_FEATURE:{
-//     const field = features[action.payload.feature];
-//     if (!field) return;
-
-//     const selectedProfile = state.listData.find(
-//         (profile) => state.selectedIndex === profile.id
-//     );
-//     selectedProfile[field].enabled = action.payload.enabled;
-//     return {
-//         ...state,
-//         listData: selectedProfile
-//     }
-// }

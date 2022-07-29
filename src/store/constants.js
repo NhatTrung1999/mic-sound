@@ -22,14 +22,3 @@ export const CHANGE_AMBIENT_NOISE_REDUCTION = "changeAmbientNoiseReduction";
 export const ENABLE_VOICE_CLARITY = "enableVoiceClarity";
 export const CHANGE_VOICE_CLARITY = "changeVoiceClarity";
 
-// export const CHANGE_CONFIG = "changeConfig";
-// export const ENABLE_FEATURE = "enableFeature";
-
-// export const features = {
-//     mic: "mic",
-//     micSensitivity: "micSensitivity",
-//     sidetone: "sidetone",
-//     volumeNormalization: "volumeNormalization",
-//     ambientNoiseReduction: "ambientNoiseReduction",
-//     voiceClarity: "voiceClarity",
-// };

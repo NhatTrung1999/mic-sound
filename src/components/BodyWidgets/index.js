@@ -21,7 +21,7 @@ function BodyWidget() {
                     <SideTone />
                 </Widget>
                 <Widget>
-                    <div class="title">enhancements</div>
+                    <div className="title">enhancements</div>
                     <Normalization />
                     <Ambient />
                     <Clarity />

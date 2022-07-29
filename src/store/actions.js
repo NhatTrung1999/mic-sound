@@ -119,13 +119,3 @@ export const changeVoiceClarity = (payload) => ({
 });
 //==============================================
 
-
-// export const changeConfig = (payload) => ({
-//     type: CHANGE_CONFIG,
-//     payload,
-// });
-
-// export const enableFeature = (payload) => ({
-//     type: ENABLE_FEATURE,
-//     payload,
-// });
