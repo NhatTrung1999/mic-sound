@@ -1,5 +1,5 @@
 import Checkbox from "../../Controls/Checkbox/Checkbox";
-import Slider from "../../Controls/Slider/Slider";
+import Slider from "../../Controls/Slider";
 import { useProfile, actions } from "../../../store";
 
 function Ambient() {
@@ -14,22 +14,25 @@ function Ambient() {
         dispatch(actions.changeAmbientNoiseReduction(valueChange));
     };
 
+    const enabled = listData.find((profile) => profile.id === selectedIndex)
+        .ambientNoiseReduction.enabled;
+    const value = listData.find((profile) => profile.id === selectedIndex)
+        .ambientNoiseReduction.value;
+
     return (
         <>
             <Checkbox
                 title="Ambient Noise Reduction"
-                getCheck={getCheck}
-                valueCheck={
-                    listData.find((profile) => profile.id === selectedIndex).ambientNoiseReduction.enabled
-                }
-            >
-                <Slider
-                    getRange={getRange}
-                    valueRange={
-                        listData.find((profile) => profile.id === selectedIndex).ambientNoiseReduction.value
-                    }
-                />
-            </Checkbox>
+                checked={enabled}
+                onChange={getCheck}
+            />
+            <Slider
+                min={10}
+                max={100}
+                value={value}
+                show={enabled}
+                onChange={getRange}
+            />
         </>
     );
 }

@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 
-function ProfileAction({ onAdd, onRename, onDuplicate, onDelete }) {
+function ProfileAction({onRename, onAdd, onDuplicate, onDelete}) {
     const [show, setShow] = useState(false);
     const ref = useRef(null);
     const clickShow = () => {
@@ -16,6 +16,8 @@ function ProfileAction({ onAdd, onRename, onDuplicate, onDelete }) {
         window.addEventListener("click", event);
         return () => window.addEventListener("click", event);
     }, [show]);
+
+    
     return (
         <div
             ref={ref}
@@ -50,6 +52,8 @@ function ProfileAction({ onAdd, onRename, onDuplicate, onDelete }) {
                 </div>
             </div>
         </div>
+
+
     );
 }
 

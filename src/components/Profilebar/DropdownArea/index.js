@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { useProfile, actions } from "../../../store";
 
-function DropdownArea({ showIP }) {
+function DropdownArea({showIP}) {
     const ref = useRef(null);
 
     const [expand, setExpand] = useState(false);
@@ -32,6 +32,7 @@ function DropdownArea({ showIP }) {
         return () => window.removeEventListener("click", event);
     }, [expand]);
 
+
     return (
         <>
             <input
@@ -39,7 +40,7 @@ function DropdownArea({ showIP }) {
                 name="profile"
                 id="profileEdit"
                 maxLength="25"
-                className={`${showIP == closeInput ? "show" : ""}`}
+                className={`${showIP === closeInput ? "show" : ""}`}
                 onBlur={CheckOutInput}
                 onChange={(e) => {
                     getName(e.target.value);
@@ -77,6 +78,7 @@ function DropdownArea({ showIP }) {
                 </div>
             </div>
         </>
+        
     );
 }
 

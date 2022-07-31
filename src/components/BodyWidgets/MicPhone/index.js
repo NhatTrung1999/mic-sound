@@ -1,30 +1,39 @@
-import Switch from '../../Controls/Switch/Switch';
-import Slider from '../../Controls/Slider/Slider';
-import { useProfile, actions } from '../../../store';
+import Slider from '../../Controls/Slider/';
+import Switch from '../../Controls/Switch';
+import { useProfile, actions } from "../../../store";
 function Microphone() {
     const [state, dispatch] = useProfile();
-    const { selectedIndex, listData} = state;
+    const { selectedIndex, listData } = state;
     const getSwitch = (enable) => {
         const valueChange = { id: selectedIndex, value: enable };
         dispatch(actions.enableMic(valueChange));
-    }
-    const getRange = (val) =>{
-        const valueChange = { id: selectedIndex, value : val};
+    };
+    const getRange = (val) => {
+        const valueChange = { id: selectedIndex, value: val };
         dispatch(actions.changeMicValue(valueChange));
-    }
+    };
+
+    const enabled = listData.find((profile) => profile.id === selectedIndex)
+        .mic.enabled;
+    const value = listData.find((profile) => profile.id === selectedIndex)
+        .mic.value;
+
     return (
-        <Switch
-            text="microphone"
-            title="title"
-            getSwitch={getSwitch}
-            more={<div className='h2-title'>mic volume</div>}
-            changeValue = {listData.find((profile) => profile.id === selectedIndex).mic.enabled}
-        >
+        <>
+            <div className="title">
+                microphone
+                <Switch on={enabled} onChange={getSwitch} />
+            </div>
+            <div className="h2-title">mic volume</div>
             <Slider
-                getRange = {getRange}
-                valueRange = {listData.find((profile) => profile.id === selectedIndex).mic.value}
+                min={10}
+                max={100}
+                value={value}
+                show={enabled}
+                onChange={getRange}
+                disabled={!enabled}
             />
-        </Switch>
-    )
+        </>
+    );
 }
 export default Microphone;

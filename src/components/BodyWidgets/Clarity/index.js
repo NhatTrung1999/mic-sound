@@ -1,5 +1,5 @@
+import Slider from "../../Controls/Slider/";
 import Checkbox from "../../Controls/Checkbox/Checkbox";
-import Slider from "../../Controls/Slider/Slider";
 import { useProfile, actions } from "../../../store";
 
 function Clarity() {
@@ -14,22 +14,25 @@ function Clarity() {
         dispatch(actions.changeVoiceClarity(valueChange));
     };
 
+    const enabled = listData.find((profile) => profile.id === selectedIndex)
+        .voiceClarity.enabled;
+    const value = listData.find((profile) => profile.id === selectedIndex)
+        .voiceClarity.value;
+
     return (
         <>
             <Checkbox
-                title="Volume Normalization"
-                getCheck={getCheck}
-                valueCheck={
-                    listData.find((profile) => profile.id === selectedIndex).voiceClarity.enabled
-                }
-            >
-                <Slider
-                    getRange={getRange}
-                    valueRange={
-                        listData.find((profile) => profile.id === selectedIndex).voiceClarity.value
-                    }
-                />
-            </Checkbox>
+                title="Voice Clarity"
+                checked={enabled}
+                onChange={getCheck}
+            />
+            <Slider
+                min={10}
+                max={100}
+                value={value}
+                show={enabled}
+                onChange={getRange}
+            />
         </>
     );
 }

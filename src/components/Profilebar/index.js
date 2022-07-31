@@ -1,13 +1,11 @@
-import { useState, useEffect, useRef} from "react";
-import {useProfile, actions} from '../../store'
-import DeleteAlert from './DeleteAlert'
-import DropdownArea from "./DropdownArea";
+import { useState, useMemo } from "react";
+import { useProfile, actions } from "../../store";
+import DeleteAlert from "./DeleteAlert";
 import ProfileAction from "./ProfileAction";
+import DropdownArea from "./DropdownArea";
 
 function Profilebar() {
-
     const [state, dispatch] = useProfile();
-    const { listData } = state;
     const [showDelete, setShowDelete] = useState(false);
     const handleDelete = () => {
         setShowDelete(!showDelete);
@@ -17,17 +15,17 @@ function Profilebar() {
     const handleRename = () => {
         setShow(!show);
     }
-    
+
     const handleAddProfile = () => {
         const newProfile = {
-            id: listData.length,
+            id: state.listData.length,
             name: `new profile`,
             mic: {
-                enabled: false,
+                enabled: true,
                 value: 55,
             },
             micSensitivity: {
-                enabled: false,
+                enabled: true,
                 value: 55,
             },
             sidetone: {
@@ -46,10 +44,14 @@ function Profilebar() {
                 enabled: false,
                 value: 50,
             },
-        }
+        };
         dispatch(actions.addProfile(newProfile));
+    };
+
+    const handleDuplicate = () => {
+        dispatch(actions.dupProfile());
     }
-    
+
     return (
         <div className="profile-bar flex">
             <div className="loader" tooltip="Syncing Profiles"></div>
@@ -61,7 +63,9 @@ function Profilebar() {
             <ProfileAction
                 onAdd={handleAddProfile}
                 onRename={handleRename}
-                onDelete={handleDelete} />
+                onDelete={handleDelete}
+                onDuplicate={handleDuplicate}
+            />
             <DeleteAlert
                 handleDelete={showDelete}
             />
@@ -70,6 +74,8 @@ function Profilebar() {
             <div className="divider"></div>
             <div className="batt batt-30" tooltip="30% Battery"></div>
         </div>
+
+        
     );
 }
 

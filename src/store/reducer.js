@@ -1,6 +1,6 @@
 import {
     ADD_PROFILE,
-    // DUPLICATE_PROFILE,
+    DUPLICATE_PROFILE,
     RENAME_PROFILE,
     DELETE_PROFILE,
     SELECT_PROFILE,
@@ -251,6 +251,11 @@ const initState = {
     selectedIndex: 0,
 };
 
+const cloneProfile = (profile, newId) => {
+    const newProfile = profile;
+    newProfile.id = newId;
+    return newProfile;
+};
 
 function reducer(state, action) {
     switch (action.type) {
@@ -260,30 +265,45 @@ function reducer(state, action) {
                 ...state,
                 selectedIndex: action.payload,
             };
-        case ADD_PROFILE:
+        case ADD_PROFILE: {
             return {
                 ...state,
                 listData: [...state.listData, action.payload],
             };
-        case DELETE_PROFILE: {
-            const id = action.payload;
-            const listData = [...state.listData];
-            const newList = listData.filter(profile => profile.id !== id);
+        }
+        case DUPLICATE_PROFILE: {
+            const selectedProfile = state.listData.find(
+                (profile) => profile.id === state.selectedIndex
+            );
+            const id = 1000;
+            const profile = cloneProfile(selectedProfile, id);
+            profile.name = `${selectedProfile.name}`;
+            state.selectedIndex = id;
             return {
                 ...state,
-                listData: newList,
-                selectedIndex: newList[0].id
-            }
+                listData: profile,
+            };
+        }
+        case DELETE_PROFILE: {
+            const id = state.selectedIndex;
+            if (state.listData.length < 2) return state;
+            const listData = [...state.listData];
+            const newProfiles = listData.filter((profile) => profile.id !== id);
+            return {
+                ...state,
+                listData: newProfiles,
+                selectedIndex: newProfiles[0].id,
+            };
         }
         case RENAME_PROFILE: {
             const id = action.payload.id;
-            const newvalue = action.payload.value;
-            const listData = [...state.listData];
-            listData.find(profile => profile.id === id).name = newvalue;
+            const newTitle = action.payload.value;
+            const newProfile = [...state.listData];
+            newProfile.find((profile) => profile.id === id).name = newTitle;
             return {
                 ...state,
-                listData: listData,
-            }
+                listData: newProfile,
+            };
         }
 
         //MICPHONE
@@ -434,10 +454,9 @@ function reducer(state, action) {
             };
         }
         default:
-            throw new Error("Invalid Action.")
+            throw new Error("Invalid Action.");
     }
 }
 
 export { initState };
 export default reducer;
-
