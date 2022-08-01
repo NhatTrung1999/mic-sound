@@ -16,8 +16,6 @@ import {
     CHANGE_AMBIENT_NOISE_REDUCTION,
     ENABLE_VOICE_CLARITY,
     CHANGE_VOICE_CLARITY,
-    ENABLE_TEST,
-    CHANGE_TEST,
 } from "./constants";
 
 const initState = {

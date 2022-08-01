@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState } from "react";
 import { useProfile, actions } from "../../store";
 import DeleteAlert from "./DeleteAlert";
 import ProfileAction from "./ProfileAction";

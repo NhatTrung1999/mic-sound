@@ -1,6 +1,8 @@
 import Checkbox from "../../Controls/Checkbox/Checkbox";
 import Slider from "../../Controls/Slider";
 import { useProfile, actions } from "../../../store";
+import { useSelector, useDispatch } from 'react-redux';
+import {enableAmbientNoiseReduction, changeAmbientNoiseReduction} from '../../../features/micSound'
 
 function Ambient() {
     const [state, dispatch] = useProfile();
