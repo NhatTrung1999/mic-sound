@@ -11,16 +11,16 @@ function BodyWidget() {
     return (
         <div className="body-widgets flex">
             <WidgetCol>
-                <Widget>
+                <Widget id="micPhone">
                     <MicPhone />
                     <MicSensitivity />
                 </Widget>
             </WidgetCol>
             <WidgetCol position="right">
-                <Widget>
+                <Widget id="micSidetone">
                     <SideTone />
                 </Widget>
-                <Widget>
+                <Widget id="micEnhance">
                     <div className="title">enhancements</div>
                     <Normalization />
                     <Ambient />

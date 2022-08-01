@@ -1,24 +1,24 @@
 import { useLayoutEffect, useRef, useCallback } from "react";
-function Slider({ show = true, min = 1, max = 100, minium, maxium, value, onChange, disabled }) {
+function Slider({ show = true, min = 10, max = 100, minium, maxium, value, onChange, disabled }) {
     const tipRef = useRef(null);
     const fillRef = useRef(null);
     const sliderRef = useRef(null);
-    const computeLayout = useCallback(() => {
-        const rangeBound = sliderRef.current.getBoundingClientRect();
-        const tipBound = tipRef.current.getBoundingClientRect();
+    const sliderRange = useCallback(() => {
+        const rangeSlider = sliderRef.current.getBoundingClientRect();
+        const tipLeft = tipRef.current.getBoundingClientRect();
         const percent = (value - min) / (max - min);
         const position =
-            percent * (rangeBound.width - 16) - tipBound.width / 2 + 8;
+            percent * (rangeSlider.width - 16) - tipLeft.width / 2 + 8;
 
         const tipPosition = position;
-        const fillWidth = percent * (rangeBound.width - 16) + 8;
+        const fillWidth = percent * (rangeSlider.width - 16) + 8;
 
         tipRef.current.style.left = tipPosition + "px";
         fillRef.current.style.width = fillWidth + "px";
     }, [value, min, max]);
     useLayoutEffect(() => {
-        computeLayout();
-    }, [computeLayout]);
+        sliderRange();
+    }, [sliderRange]);
     return (
         <div className={`slider-container ${show ? "on" : ""}`} id="slPhone">
             <div className="foot min">{minium || 'low' }</div>

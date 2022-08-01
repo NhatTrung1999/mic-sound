@@ -23,8 +23,8 @@ function Clarity() {
         <>
             <Checkbox
                 title="Voice Clarity"
-                checked={enabled}
-                onChange={getCheck}
+                valueCheck={enabled}
+                getCheck={getCheck}
             />
             <Slider
                 min={10}

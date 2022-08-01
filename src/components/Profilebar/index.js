@@ -49,7 +49,38 @@ function Profilebar() {
     };
 
     const handleDuplicate = () => {
-        dispatch(actions.dupProfile());
+        const selectedProfile = state.listData.find(
+            (profile) => profile.id === state.selectedIndex
+        );
+        const newProfile = {
+            id: state.listData.length,
+            name: `${selectedProfile.name}`,
+            mic: {
+                enabled: true,
+                value: 55,
+            },
+            micSensitivity: {
+                enabled: true,
+                value: 55,
+            },
+            sidetone: {
+                enabled: false,
+                value: 50,
+            },
+            volumeNormalization: {
+                enabled: false,
+                value: 50,
+            },
+            ambientNoiseReduction: {
+                enabled: false,
+                value: 50,
+            },
+            voiceClarity: {
+                enabled: false,
+                value: 50,
+            },
+        };
+        dispatch(actions.dupProfile(newProfile));
     }
 
     return (

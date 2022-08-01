@@ -1,8 +1,8 @@
 import Tip from '../Tip'
 
-function Widget({children}) {
+function Widget({children, ...props}) {
     return (
-        <div className="widget">
+        <div className="widget" { ...props } >
             <Tip />
             {children}
         </div>

@@ -32,6 +32,20 @@ function DropdownArea({showIP}) {
         return () => window.removeEventListener("click", event);
     }, [expand]);
 
+    const inputRef = useRef(null);
+
+    useEffect(() => {
+        if (showIP) {
+            inputRef.current.focus();
+            inputRef.current.select();
+        } else {
+            inputRef.current.select();
+        }
+    }, [showIP]);
+
+    const selectedProfile = listData.find(
+        (profile) => profile.id === selectedIndex
+    );
 
     return (
         <>
@@ -42,9 +56,11 @@ function DropdownArea({showIP}) {
                 maxLength="25"
                 className={`${showIP === closeInput ? "show" : ""}`}
                 onBlur={CheckOutInput}
+                value={selectedProfile.name}
                 onChange={(e) => {
                     getName(e.target.value);
                 }}
+                ref={inputRef}
             />
             <div className="dropdown-area" ref={ref}>
                 <div
@@ -53,7 +69,7 @@ function DropdownArea({showIP}) {
                     onClick={ExpandProfile}
                 >
                     <div className="selected">
-                        {listData.find((c) => c.id === selectedIndex).name}
+                        {selectedProfile.name}
                     </div>
                     <div className="icon expand"></div>
                 </div>

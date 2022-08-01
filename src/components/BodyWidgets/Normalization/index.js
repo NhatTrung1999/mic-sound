@@ -23,8 +23,8 @@ function Normalization() {
         <>
             <Checkbox
                 title="Volume Normalization"
-                checked={enabled}
-                onChange={getCheck}
+                valueCheck={enabled}
+                getCheck={getCheck}
             />
             <Slider
                 min={10}

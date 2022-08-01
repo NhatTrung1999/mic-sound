@@ -37,6 +37,7 @@ function SideTone() {
                 value={value}
                 show={enabled}
                 onChange={getRange}
+                disabled={!enabled}
             />
         </>
     );

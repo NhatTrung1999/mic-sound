@@ -23,8 +23,8 @@ function Ambient() {
         <>
             <Checkbox
                 title="Ambient Noise Reduction"
-                checked={enabled}
-                onChange={getCheck}
+                valueCheck={enabled}
+                getCheck={getCheck}
             />
             <Slider
                 min={10}

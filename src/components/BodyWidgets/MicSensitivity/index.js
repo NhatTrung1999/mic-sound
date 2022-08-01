@@ -21,7 +21,7 @@ function MicSensitivity() {
 
     return (
         <>
-            <div className="h2-title">
+            <div className="h2-title mt20">
                 mic sensitivity
                 <Switch
                     on={enabled}
@@ -38,6 +38,7 @@ function MicSensitivity() {
                 value={value}
                 show={enabled}
                 onChange={getRange}
+                disabled={!enabled}
             />
         </>
     );
