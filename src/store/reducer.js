@@ -16,9 +16,8 @@ import {
     CHANGE_AMBIENT_NOISE_REDUCTION,
     ENABLE_VOICE_CLARITY,
     CHANGE_VOICE_CLARITY,
-    // CHANGE_CONFIG,
-    // ENABLE_FEATURE,
-    // features,
+    ENABLE_TEST,
+    CHANGE_TEST,
 } from "./constants";
 
 const initState = {
@@ -235,7 +234,7 @@ const initState = {
                 value: 50,
             },
             volumeNormalization: {
-                enabled: true,
+                enabled: false,
                 value: 50,
             },
             ambientNoiseReduction: {
@@ -251,12 +250,6 @@ const initState = {
     selectedIndex: 0,
 };
 
-const cloneProfile = (profile, newId) => {
-    const newProfile = profile;
-    newProfile.id = newId;
-    return newProfile;
-};
-
 function reducer(state, action) {
     switch (action.type) {
         // ACTIONS
@@ -269,15 +262,14 @@ function reducer(state, action) {
             return {
                 ...state,
                 listData: [...state.listData, action.payload],
-                selectedIndex: state.listData.length
+                selectedIndex: state.listData.length,
             };
         }
         case DUPLICATE_PROFILE: {
             return {
                 ...state,
                 listData: [...state.listData, action.payload],
-                selectedIndex: state.listData.length
-
+                selectedIndex: state.listData.length,
             };
         }
         case DELETE_PROFILE: {
@@ -376,22 +368,26 @@ function reducer(state, action) {
 
         //VOLUME NORMALIZATION
         case ENABLE_VOLUME_NORMALIZATION: {
+            // const id = action.payload.id;
+            // const newValue = action.payload.value;
+            // const listData = state.listData.map((profile) => {
+            //     if (profile.id === id) {
+            //         return {
+            //             ...profile,
+            //             volumeNormalization: {
+            //                 ...profile.volumeNormalization,
+            //                 enabled: newValue,
+            //             },
+            //         };
+            //     }
+            //     return profile;
+            // });
             const id = action.payload.id;
             const newValue = action.payload.value;
-            const listData = state.listData.map(
-                (profile) =>{
-                    if(profile.id === id) {
-                        return {
-                            ...profile,
-                            volumeNormalization: {
-                                ...profile.volumeNormalization,
-                                enabled: newValue
-                            }
-                        }
-                    }
-                    return profile;
-                }
-            )
+            const listData = [...state.listData];
+            listData.find(
+                (profile) => profile.id === id
+            ).volumeNormalization.enabled = newValue;
             return {
                 ...state,
                 listData: listData,
@@ -414,20 +410,10 @@ function reducer(state, action) {
         case ENABLE_AMBIENT_NOISE_REDUCTION: {
             const id = action.payload.id;
             const newValue = action.payload.value;
-            const listData = state.listData.map(
-                (profile) =>{
-                    if(profile.id === id) {
-                        return {
-                            ...profile,
-                            ambientNoiseReduction: {
-                                ...profile.ambientNoiseReduction,
-                                enabled: newValue
-                            }
-                        }
-                    }
-                    return profile;
-                }
-            )
+            const listData = [...state.listData];
+            listData.find(
+                (profile) => profile.id === id
+            ).ambientNoiseReduction.enabled = newValue;
             return {
                 ...state,
                 listData: listData,
@@ -450,20 +436,10 @@ function reducer(state, action) {
         case ENABLE_VOICE_CLARITY: {
             const id = action.payload.id;
             const newValue = action.payload.value;
-            const listData = state.listData.map(
-                (profile) =>{
-                    if(profile.id === id) {
-                        return {
-                            ...profile,
-                            voiceClarity: {
-                                ...profile.voiceClarity,
-                                enabled: newValue
-                            }
-                        }
-                    }
-                    return profile;
-                }
-            )
+            const listData = [...state.listData];
+            listData.find(
+                (profile) => profile.id === id
+            ).voiceClarity.enabled = newValue;
             return {
                 ...state,
                 listData: listData,
@@ -480,6 +456,7 @@ function reducer(state, action) {
                 listData: listData,
             };
         }
+
         default:
             throw new Error("Invalid Action.");
     }

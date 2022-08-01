@@ -1,20 +1,19 @@
-import { useState } from "react";
-import {useProfile, actions} from '../../../store'
-function DeleteAlert({ handleDelete }) {
+import { useState} from "react";
+import { useProfile, actions } from "../../../store";
+function DeleteAlert({ handleDelete}) {
     const [state, dispatch] = useProfile();
-    const { selectedIndex} = state;
-    const [offDetele, setOffDetele]  = useState(true);
-    const AceptDelete = ()=>{
+    const { selectedIndex } = state;
+    const [onDetele, setOnDetele] = useState(true);
+    const Deleted = () => {
         dispatch(actions.deleteProfile(selectedIndex));
-        setOffDetele(!offDetele);
-    }
+        setOnDetele(!onDetele);
+    };
 
-    
     return (
         <div
             id="deleteAlert"
             className={`flex alert profile-del ${
-                handleDelete === offDetele ? "show" : ""
+                handleDelete === onDetele ? "show" : ""
             }`}
         >
             <div className="title">delete profile</div>
@@ -22,11 +21,10 @@ function DeleteAlert({ handleDelete }) {
                 You're about to delete this profile. All bindings in this
                 profile will be deleted.
             </div>
-            <div className="thx-btn" id="deleteConfirm" onClick={AceptDelete}>
+            <div className="thx-btn" id="deleteConfirm" onClick={Deleted}>
                 delete
             </div>
         </div>
-        
     );
 }
 

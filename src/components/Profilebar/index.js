@@ -96,6 +96,7 @@ function Profilebar() {
                 onRename={handleRename}
                 onDelete={handleDelete}
                 onDuplicate={handleDuplicate}
+                disableDelete={state.listData.length === 1}
             />
             <DeleteAlert
                 handleDelete={showDelete}

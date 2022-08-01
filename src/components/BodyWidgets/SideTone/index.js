@@ -32,8 +32,8 @@ function SideTone() {
             <Slider
                 min={10}
                 max={100}
-                minium={0}
-                maxium={100}
+                minium='0'
+                maxium='100'
                 value={value}
                 show={enabled}
                 onChange={getRange}

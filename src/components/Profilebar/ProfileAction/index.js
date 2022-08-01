@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 
-function ProfileAction({onRename, onAdd, onDuplicate, onDelete}) {
+function ProfileAction({onRename, onAdd, onDuplicate, onDelete, disableDelete = false }) {
     const [show, setShow] = useState(false);
     const ref = useRef(null);
     const clickShow = () => {
@@ -44,9 +44,13 @@ function ProfileAction({onRename, onAdd, onDuplicate, onDelete}) {
                 <div className="act action">export</div>
                 <div className="act divider"></div>
                 <div
-                    className="act action"
+                    className={`act action ${disableDelete ? 'disabled' : ''}`}
                     id="deleteAction"
-                    onClick={onDelete}
+                    onClick={(e) => {
+                        if (disableDelete) return;
+                        e.stopPropagation();
+                        onDelete()
+                    }}
                 >
                     delete
                 </div>
