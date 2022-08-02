@@ -1,22 +1,29 @@
-import Slider from '../../Controls/Slider/';
-import Switch from '../../Controls/Switch';
-import { useProfile, actions } from "../../../store";
+import Slider from "../../Controls/Slider/";
+import Switch from "../../Controls/Switch";
+import { useSelector, useDispatch } from "react-redux";
+import { enableMic, changeMicValue } from "../../../features/micSound/micSlice";
+
 function Microphone() {
-    const [state, dispatch] = useProfile();
-    const { selectedIndex, listData } = state;
+    const { listData, selectedIndex } = useSelector((state) => {
+        return {
+            listData: state.mic.listData,
+            selectedIndex: state.mic.selectedIndex,
+        };
+    });
+    const dispatch = useDispatch();
     const getSwitch = (enable) => {
         const valueChange = { id: selectedIndex, value: enable };
-        dispatch(actions.enableMic(valueChange));
+        dispatch(enableMic(valueChange));
     };
     const getRange = (val) => {
         const valueChange = { id: selectedIndex, value: val };
-        dispatch(actions.changeMicValue(valueChange));
+        dispatch(changeMicValue(valueChange));
     };
 
-    const enabled = listData.find((profile) => profile.id === selectedIndex)
-        .mic.enabled;
-    const value = listData.find((profile) => profile.id === selectedIndex)
-        .mic.value;
+    const enabled = listData.find((profile) => profile.id === selectedIndex).mic
+        .enabled;
+    const value = listData.find((profile) => profile.id === selectedIndex).mic
+        .value;
 
     return (
         <>

@@ -266,12 +266,19 @@ export const micSlice = createSlice({
         },
         renameProfile: (state, action) => {
             const id = action.payload.id;
-            const newTitle = action.payload.value;
-            const newProfile = [...state.listData];
-            newProfile.find((profile) => profile.id === id).name = newTitle;
+            const newValue = action.payload.value;
+            const listData = state.listData.map((profile) => {
+                if (profile.id === id) {
+                    return {
+                        ...profile,
+                        name: newValue
+                    };
+                }
+                return profile;
+            });
             return {
                 ...state,
-                listData: newProfile,
+                listData: listData,
             };
         },
 
@@ -279,9 +286,18 @@ export const micSlice = createSlice({
         enableMic: (state, action) => {
             const id = action.payload.id;
             const newValue = action.payload.value;
-            const listData = [...state.listData];
-            listData.find((profile) => profile.id === id).mic.enabled =
-                newValue;
+            const listData = state.listData.map((profile) => {
+                if (profile.id === id) {
+                    return {
+                        ...profile,
+                        mic: {
+                            ...profile.mic,
+                            enabled: newValue,
+                        },
+                    };
+                }
+                return profile;
+            });
             return {
                 ...state,
                 listData: listData,
@@ -290,8 +306,18 @@ export const micSlice = createSlice({
         changeMicValue: (state, action) => {
             const id = action.payload.id;
             const newValue = action.payload.value;
-            const listData = [...state.listData];
-            listData.find((profile) => profile.id === id).mic.value = newValue;
+            const listData = state.listData.map((profile) => {
+                if (profile.id === id) {
+                    return {
+                        ...profile,
+                        mic: {
+                            ...profile.mic,
+                            value: newValue,
+                        },
+                    };
+                }
+                return profile;
+            });
             return {
                 ...state,
                 listData: listData,
@@ -302,10 +328,18 @@ export const micSlice = createSlice({
         enableMicSensitivity: (state, action) => {
             const id = action.payload.id;
             const newValue = action.payload.value;
-            const listData = [...state.listData];
-            listData.find(
-                (profile) => profile.id === id
-            ).micSensitivity.enabled = newValue;
+            const listData = state.listData.map((profile) => {
+                if (profile.id === id) {
+                    return {
+                        ...profile,
+                        micSensitivity: {
+                            ...profile.micSensitivity,
+                            enabled: newValue,
+                        },
+                    };
+                }
+                return profile;
+            });
             return {
                 ...state,
                 listData: listData,
@@ -314,9 +348,18 @@ export const micSlice = createSlice({
         changeMicSensitivity: (state, action) => {
             const id = action.payload.id;
             const newValue = action.payload.value;
-            const listData = [...state.listData];
-            listData.find((profile) => profile.id === id).micSensitivity.value =
-                newValue;
+            const listData = state.listData.map((profile) => {
+                if (profile.id === id) {
+                    return {
+                        ...profile,
+                        micSensitivity: {
+                            ...profile.micSensitivity,
+                            value: newValue,
+                        },
+                    };
+                }
+                return profile;
+            });
             return {
                 ...state,
                 listData: listData,
@@ -327,9 +370,18 @@ export const micSlice = createSlice({
         enableSidetone: (state, action) => {
             const id = action.payload.id;
             const newValue = action.payload.value;
-            const listData = [...state.listData];
-            listData.find((profile) => profile.id === id).sidetone.enabled =
-                newValue;
+            const listData = state.listData.map((profile) => {
+                if (profile.id === id) {
+                    return {
+                        ...profile,
+                        sidetone: {
+                            ...profile.sidetone,
+                            enabled: newValue,
+                        },
+                    };
+                }
+                return profile;
+            });
             return {
                 ...state,
                 listData: listData,
@@ -338,9 +390,18 @@ export const micSlice = createSlice({
         changeSidetone: (state, action) => {
             const id = action.payload.id;
             const newValue = action.payload.value;
-            const listData = [...state.listData];
-            listData.find((profile) => profile.id === id).sidetone.value =
-                newValue;
+            const listData = state.listData.map((profile) => {
+                if (profile.id === id) {
+                    return {
+                        ...profile,
+                        sidetone: {
+                            ...profile.sidetone,
+                            value: newValue,
+                        },
+                    };
+                }
+                return profile;
+            });
             return {
                 ...state,
                 listData: listData,
@@ -351,10 +412,18 @@ export const micSlice = createSlice({
         enableVolumeNormalization: (state, action) => {
             const id = action.payload.id;
             const newValue = action.payload.value;
-            const listData = [...state.listData];
-            listData.find(
-                (profile) => profile.id === id
-            ).volumeNormalization.enabled = newValue;
+            const listData = state.listData.map((profile) => {
+                if (profile.id === id) {
+                    return {
+                        ...profile,
+                        volumeNormalization: {
+                            ...profile.volumeNormalization,
+                            enabled: newValue,
+                        },
+                    };
+                }
+                return profile;
+            });
             return {
                 ...state,
                 listData: listData,
@@ -363,10 +432,18 @@ export const micSlice = createSlice({
         changeVolumeNormalization: (state, action) => {
             const id = action.payload.id;
             const newValue = action.payload.value;
-            const listData = [...state.listData];
-            listData.find(
-                (profile) => profile.id === id
-            ).volumeNormalization.value = newValue;
+            const listData = state.listData.map((profile) => {
+                if (profile.id === id) {
+                    return {
+                        ...profile,
+                        volumeNormalization: {
+                            ...profile.volumeNormalization,
+                            value: newValue,
+                        },
+                    };
+                }
+                return profile;
+            });
             return {
                 ...state,
                 listData: listData,
@@ -377,10 +454,18 @@ export const micSlice = createSlice({
         enableAmbientNoiseReduction: (state, action) => {
             const id = action.payload.id;
             const newValue = action.payload.value;
-            const listData = [...state.listData];
-            listData.find(
-                (profile) => profile.id === id
-            ).ambientNoiseReduction.enabled = newValue;
+            const listData = state.listData.map((profile) => {
+                if (profile.id === id) {
+                    return {
+                        ...profile,
+                        ambientNoiseReduction: {
+                            ...profile.ambientNoiseReduction,
+                            enabled: newValue,
+                        },
+                    };
+                }
+                return profile;
+            });
             return {
                 ...state,
                 listData: listData,
@@ -389,10 +474,18 @@ export const micSlice = createSlice({
         changeAmbientNoiseReduction: (state, action) => {
             const id = action.payload.id;
             const newValue = action.payload.value;
-            const listData = [...state.listData];
-            listData.find(
-                (profile) => profile.id === id
-            ).ambientNoiseReduction.value = newValue;
+            const listData = state.listData.map((profile) => {
+                if (profile.id === id) {
+                    return {
+                        ...profile,
+                        ambientNoiseReduction: {
+                            ...profile.ambientNoiseReduction,
+                            value: newValue,
+                        },
+                    };
+                }
+                return profile;
+            });
             return {
                 ...state,
                 listData: listData,
@@ -403,9 +496,18 @@ export const micSlice = createSlice({
         enableVoiceClarity: (state, action) => {
             const id = action.payload.id;
             const newValue = action.payload.value;
-            const listData = [...state.listData];
-            listData.find((profile) => profile.id === id).voiceClarity.enabled =
-                newValue;
+            const listData = state.listData.map((profile) => {
+                if (profile.id === id) {
+                    return {
+                        ...profile,
+                        voiceClarity: {
+                            ...profile.voiceClarity,
+                            enabled: newValue,
+                        },
+                    };
+                }
+                return profile;
+            });
             return {
                 ...state,
                 listData: listData,
@@ -414,9 +516,18 @@ export const micSlice = createSlice({
         changeVoiceClarity: (state, action) => {
             const id = action.payload.id;
             const newValue = action.payload.value;
-            const listData = [...state.listData];
-            listData.find((profile) => profile.id === id).voiceClarity.value =
-                newValue;
+            const listData = state.listData.map((profile) => {
+                if (profile.id === id) {
+                    return {
+                        ...profile,
+                        voiceClarity: {
+                            ...profile.voiceClarity,
+                            value: newValue,
+                        },
+                    };
+                }
+                return profile;
+            });
             return {
                 ...state,
                 listData: listData,
@@ -426,10 +537,11 @@ export const micSlice = createSlice({
 });
 
 export const {
-    selectedProfile,
+    selectProfile,
     addProfile,
     dupProfile,
     deleteProfile,
+    renameProfile,
     enableMic,
     changeMicValue,
     enableMicSensitivity,

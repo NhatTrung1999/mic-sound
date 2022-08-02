@@ -1,11 +1,13 @@
 import { useState} from "react";
-import { useProfile, actions } from "../../../store";
+import { useDispatch, useSelector } from 'react-redux';
+import { deleteProfile } from '../../../features/micSound/micSlice'
+
 function DeleteAlert({ handleDelete}) {
-    const [state, dispatch] = useProfile();
-    const { selectedIndex } = state;
+    const selectedIndex = useSelector(state => state.mic.selectedIndex)
+    const dispatch = useDispatch();
     const [onDetele, setOnDetele] = useState(true);
     const Deleted = () => {
-        dispatch(actions.deleteProfile(selectedIndex));
+        dispatch(deleteProfile(selectedIndex));
         setOnDetele(!onDetele);
     };
 

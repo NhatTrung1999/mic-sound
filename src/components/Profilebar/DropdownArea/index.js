@@ -1,9 +1,17 @@
 import { useState, useEffect, useRef } from "react";
-import { useProfile, actions } from "../../../store";
+import { useDispatch, useSelector } from "react-redux";
+import { selectProfile, renameProfile} from "../../../features/micSound/micSlice";
 
-function DropdownArea({showIP}) {
+function DropdownArea({ showIP }) {
     const ref = useRef(null);
 
+    const { listData, selectedIndex } = useSelector((state) => {
+        return {
+            listData: state.mic.listData,
+            selectedIndex: state.mic.selectedIndex,
+        };
+    });
+    const dispatch = useDispatch();
     const [expand, setExpand] = useState(false);
     const ExpandProfile = () => {
         setExpand(!expand);
@@ -13,15 +21,13 @@ function DropdownArea({showIP}) {
     const CheckOutInput = () => {
         setCloseInput(!closeInput);
     };
-    const [state, dispatch] = useProfile();
-    const { listData, selectedIndex } = state;
-    const SelectProfile = (id) => {
-        dispatch(actions.selectProfile(id));
+    const selectedProfileId = (id) => {
+        dispatch(selectProfile(id));
         ExpandProfile();
     };
-    const getName = (name) => {
+    const changeName = (name) => {
         const valueChange = { id: selectedIndex, value: name };
-        dispatch(actions.renameProfile(valueChange));
+        dispatch(renameProfile(valueChange));
     };
 
     useEffect(() => {
@@ -58,7 +64,7 @@ function DropdownArea({showIP}) {
                 onBlur={CheckOutInput}
                 value={selectedProfile.name}
                 onChange={(e) => {
-                    getName(e.target.value);
+                    changeName(e.target.value);
                 }}
                 ref={inputRef}
             />
@@ -68,9 +74,7 @@ function DropdownArea({showIP}) {
                     className={`s3-dropdown ${expand ? "expand" : ""}`}
                     onClick={ExpandProfile}
                 >
-                    <div className="selected">
-                        {selectedProfile.name}
-                    </div>
+                    <div className="selected">{selectedProfile.name}</div>
                     <div className="icon expand"></div>
                 </div>
                 <div
@@ -85,7 +89,7 @@ function DropdownArea({showIP}) {
                                 profile.id === selectedIndex ? "selected" : ""
                             }`}
                             onClick={() => {
-                                SelectProfile(profile.id);
+                                selectedProfileId(profile.id);
                             }}
                         >
                             {profile.name}
@@ -94,7 +98,6 @@ function DropdownArea({showIP}) {
                 </div>
             </div>
         </>
-        
     );
 }
 

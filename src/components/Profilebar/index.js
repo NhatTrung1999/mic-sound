@@ -1,24 +1,31 @@
 import { useState } from "react";
-import { useProfile, actions } from "../../store";
 import DeleteAlert from "./DeleteAlert";
 import ProfileAction from "./ProfileAction";
 import DropdownArea from "./DropdownArea";
+import { useDispatch, useSelector } from "react-redux";
+import { addProfile, dupProfile } from "../../features/micSound/micSlice";
 
 function Profilebar() {
-    const [state, dispatch] = useProfile();
     const [showDelete, setShowDelete] = useState(false);
+    const { listData, selectedIndex } = useSelector((state) => {
+        return {
+            listData: state.mic.listData,
+            selectedIndex: state.mic.selectedIndex,
+        };
+    });
+    const dispatch = useDispatch();
     const handleDelete = () => {
         setShowDelete(!showDelete);
-    }
+    };
 
     const [show, setShow] = useState(false);
     const handleRename = () => {
         setShow(!show);
-    }
+    };
 
     const handleAddProfile = () => {
         const newProfile = {
-            id: state.listData.length,
+            id: listData.length,
             name: `new profile`,
             mic: {
                 enabled: true,
@@ -45,15 +52,15 @@ function Profilebar() {
                 value: 50,
             },
         };
-        dispatch(actions.addProfile(newProfile));
+        dispatch(addProfile(newProfile));
     };
 
     const handleDuplicate = () => {
-        const selectedProfile = state.listData.find(
-            (profile) => profile.id === state.selectedIndex
+        const selectedProfile = listData.find(
+            (profile) => profile.id === selectedIndex
         );
         const newProfile = {
-            id: state.listData.length,
+            id: listData.length,
             name: `${selectedProfile.name}`,
             mic: {
                 enabled: true,
@@ -80,34 +87,28 @@ function Profilebar() {
                 value: 50,
             },
         };
-        dispatch(actions.dupProfile(newProfile));
-    }
+        dispatch(dupProfile(newProfile));
+    };
 
     return (
         <div className="profile-bar flex">
             <div className="loader" tooltip="Syncing Profiles"></div>
             <div>profile</div>
 
-            <DropdownArea
-                showIP={show}
-            />
+            <DropdownArea showIP={show} />
             <ProfileAction
                 onAdd={handleAddProfile}
                 onRename={handleRename}
                 onDelete={handleDelete}
                 onDuplicate={handleDuplicate}
-                disableDelete={state.listData.length === 1}
+                disableDelete={listData.length === 1}
             />
-            <DeleteAlert
-                handleDelete={showDelete}
-            />
+            <DeleteAlert handleDelete={showDelete} />
 
             <div className="obm hover-border" tooltip="On-board Profiles"></div>
             <div className="divider"></div>
             <div className="batt batt-30" tooltip="30% Battery"></div>
         </div>
-
-        
     );
 }
 

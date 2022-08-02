@@ -1,17 +1,26 @@
 import Slider from "../../Controls/Slider/";
 import Checkbox from "../../Controls/Checkbox/Checkbox";
-import { useProfile, actions } from "../../../store";
+import { useSelector, useDispatch } from "react-redux";
+import {
+    enableVoiceClarity,
+    changeVoiceClarity,
+} from "../../../features/micSound/micSlice";
 
 function Clarity() {
-    const [state, dispatch] = useProfile();
-    const { selectedIndex, listData } = state;
+    const { listData, selectedIndex } = useSelector((state) => {
+        return {
+            listData: state.mic.listData,
+            selectedIndex: state.mic.selectedIndex,
+        };
+    });
+    const dispatch = useDispatch();
     const getCheck = (checked) => {
         const valueChange = { id: selectedIndex, value: checked };
-        dispatch(actions.enableVoiceClarity(valueChange));
+        dispatch(enableVoiceClarity(valueChange));
     };
     const getRange = (val) => {
         const valueChange = { id: selectedIndex, value: val };
-        dispatch(actions.changeVoiceClarity(valueChange));
+        dispatch(changeVoiceClarity(valueChange));
     };
 
     const enabled = listData.find((profile) => profile.id === selectedIndex)

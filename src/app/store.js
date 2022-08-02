@@ -3,6 +3,6 @@ import micReducer from '../features/micSound/micSlice'
 
 export default configureStore({
     reducer: {
-        micSound: micReducer
+        mic: micReducer
     }
 })

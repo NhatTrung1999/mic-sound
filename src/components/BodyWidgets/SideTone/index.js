@@ -1,18 +1,24 @@
 import Slider from "../../Controls/Slider/";
 import Switch from "../../Controls/Switch";
-import { useProfile, actions } from "../../../store";
+import { useSelector, useDispatch } from "react-redux";
+import { enableSidetone, changeSidetone } from "../../../features/micSound/micSlice";
 
 function SideTone() {
-    const [state, dispatch] = useProfile();
-    const { selectedIndex, listData } = state;
+    const { listData, selectedIndex } = useSelector((state) => {
+        return {
+            listData: state.mic.listData,
+            selectedIndex: state.mic.selectedIndex,
+        };
+    });
+    const dispatch = useDispatch();
     const getSwitch = (enable) => {
         const valueChange = { id: selectedIndex, value: enable };
-        dispatch(actions.enableSidetone(valueChange));
+        dispatch(enableSidetone(valueChange));
     };
 
     const getRange = (val) => {
         const valueChange = { id: selectedIndex, value: val };
-        dispatch(actions.changeSidetone(valueChange));
+        dispatch(changeSidetone(valueChange));
     };
 
     const enabled = listData.find((profile) => profile.id === selectedIndex)
@@ -24,16 +30,13 @@ function SideTone() {
         <>
             <div className="title">
                 sidetone
-                <Switch
-                    on={enabled}
-                    onChange={getSwitch}
-                />
+                <Switch on={enabled} onChange={getSwitch} />
             </div>
             <Slider
                 min={10}
                 max={100}
-                minium='0'
-                maxium='100'
+                minium="0"
+                maxium="100"
                 value={value}
                 show={enabled}
                 onChange={getRange}
